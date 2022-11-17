@@ -137,6 +137,7 @@ export default function Dashboard() {
         );
         const data = await response.json();
         setStats(data.response);
+        console.log(data.response);
         setLoading(false);
       };
 
