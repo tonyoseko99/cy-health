@@ -61,3 +61,13 @@
   background-color: #1976d2;
   color: white;
 }
+
+/* learn more button */
+.learn-more-btn{
+  background-color: #1976d2;
+  color: white !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
