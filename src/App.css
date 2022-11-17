@@ -61,7 +61,12 @@
   background-color: #1976d2;
   color: white;
 }
-
+/* card actions a */
+.card-actions a{
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+}
 /* learn more button */
 .learn-more-btn{
   background-color: #1976d2;

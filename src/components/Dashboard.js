@@ -29,9 +29,10 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
-import { Dashboard } from "@mui/icons-material";
-// import useState and useEffect
+import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Countries from "./Countries";
 
 const drawerWidth = 240;
 
@@ -100,9 +101,9 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function Dashboard() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,44 +113,67 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  //   fetch stats from API
-  const [stats, setStats] = useState([]);
-  const [countryData, setCountryData] = useState([]);
-  const [errors, setErrors] = useState(null);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchCountryData = async () => {
-      setLoading(true);
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
-          "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
-        },
+      //   fetch stats from API
+      const [stats, setStats] = useState([]);
+      const [loading, setLoading] = useState(false);
+      useEffect(() => {
+        fetchCountryData();
+      }, []);
+  
+      const fetchCountryData = async () => {
+        setLoading(true);
+        const options = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Key":
+              "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
+            "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
+          },
+        };
+  
+        const response = await fetch(
+          "https://covid-193.p.rapidapi.com/statistics",
+          options
+        );
+        const data = await response.json();
+        setStats(data.response);
+        setLoading(false);
       };
 
-      const response = await fetch(
-        "https://covid-193.p.rapidapi.com/statistics",
-        options
-      );
-      const data = await response.json();
-      setStats(data.response);
-      console.log(data.response);
-      setLoading(false);
-    };
-    fetchCountryData();
-  }, []);
+    //   function to get each country data
+    const getCountryData = (country) => {
+        const data = stats.find((s) => s.country === country);
+        console.log(data);
+        return data;
+        };
 
-//   function to get total cases
-    const getTotalCases = () => {
-        let totalCases = 0;
-        stats.map((country) => {
-            totalCases += country.cases.total;
-        });
-        return totalCases;
-    };
 
+  // function to get total cases, recovered
+  const getTotal = (type) => {
+    let total = 0;
+    stats.forEach((country) => {
+      total += country.cases[type];
+    });
+    return(total);
+  };
+
+  // function to get total deaths
+  const getTotalDeaths = () => {
+    let total = 0;
+    stats.forEach((country) => {
+      total += country.deaths.total;
+    });
+    return total;
+  };
+
+  // function to get current date
+  const getDate = () => {
+    const date = new Date();
+    const month = date.toLocaleString("default", { month: "long" });
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -210,7 +234,7 @@ export default function MiniDrawer() {
                 >
                   {(() => {
                     if (index === 0) {
-                      return <Dashboard />;
+                      return <DashboardCustomizeIcon />;
                     } else if (index === 1) {
                       return <PublicIcon />;
                     } else if (index === 2) {
@@ -235,51 +259,62 @@ export default function MiniDrawer() {
         <Typography className="dashcard-container">
           {/* card to display total number of covid-19 cases */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Cases" subheader="September 14, 2021" />
+            <CardHeader title="Total Cases" subheader={getDate()} />
             <CardContent>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.primary">
                 Total number of cases of covid-19
                 <br></br>
                 <strong>
-                    {loading ? "Loading..." : getTotalCases().toLocaleString()}
+                  {loading ? "Loading..." : getTotal("total").toLocaleString()}
                 </strong>
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button size="small" className="learn-more-btn">
-                Learn More
-              </Button>
+            <CardActions className="card-actions">
+              <Link to={"/countries"} onClick={() => <Countries /> } >
+                <Button size="small">Learn More</Button>
+                </Link>
             </CardActions>
           </Card>
           {/* card to display total number of covid-19 deaths */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Deaths" subheader="September 14, 2021" />
+            <CardHeader title="Total Deaths" subheader={getDate()} />
             <CardContent>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.primary">
                 Total number of deaths of covid-19
+                <br></br>
+                <strong>
+                  {loading ? "Loading..." : getTotalDeaths().toLocaleString()}
+                </strong>
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button size="small" className="learn-more-btn">
-                Learn More
-              </Button>
+            <CardActions className="card-actions">
+              <Link to={"/countries"} onClick={() => {<Countries stats={stats} />}}>
+                <Button size="small" className="learn-more-btn">
+                  Learn More
+                </Button>
+              </Link>
             </CardActions>
           </Card>
           {/* card to display total number of covid-19 recovered */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader
-              title="Total Recovered"
-              subheader="September 14, 2021"
-            />
+            <CardHeader title="Total Recovered" subheader={getDate()} />
             <CardContent>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.primary">
                 Total number of recovered of covid-19
+                <br></br>
+                <strong>
+                  {loading
+                    ? "Loading..."
+                    : getTotal("recovered").toLocaleString()}
+                </strong>
               </Typography>
             </CardContent>
-            <CardActions>
-              <Button size="small" className="learn-more-btn">
-                Learn More
-              </Button>
+            <CardActions className="card-actions">
+              <a href="/countries">
+                <Button size="small" className="learn-more-btn">
+                  Learn More
+                </Button>
+              </a>
             </CardActions>
           </Card>
         </Typography>
