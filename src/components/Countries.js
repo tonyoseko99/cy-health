@@ -24,29 +24,65 @@ const Countries = () => {
                         value: country.countryInfo.iso2,
                     }));
                     setCountries(countries);
-                    console.log(countries);
                 });
         };
         getCountriesData();
     }, []);
 
+    // make a dropdown menu for each country
+    const onCountryChange = (event) => {
+        const countryCode = event.target.value;
+        setCountry(countryCode);
+    };
 
-  return (
-    <>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-        //   value={country}
-          label="Age"
-        //   onChange={handleChange}
-        >
-          <MenuItem >Ten</MenuItem>
-        </Select>
-      </FormControl>
-    </>
-  );
+    // map through the countries array and return a single MenuItem for each country
+    return (
+        <div>
+            <FormControl>
+                <InputLabel>Choose a country</InputLabel>
+                <Select
+                    value={country}
+                    onChange={onCountryChange}
+                    variant="standard"
+                >
+                    <MenuItem value="worldwide">Worldwide</MenuItem>
+                    {countries.map((country) => (
+                        <MenuItem value={country.value}>
+                            {country.name}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        </div>
+    );
 };
+
+
+
+
+
+
+
+
+
+
+
+//   return (
+//     <>
+//       <FormControl fullWidth>
+//         <InputLabel id="demo-simple-select-label">Country</InputLabel>
+        
+//         <Select
+//           labelId="demo-simple-select-label"
+//           id="demo-simple-select"
+//           value={country}
+//           label="Age"
+//           onChange={onCountryChange}
+//         >
+//           <MenuItem >Ten</MenuItem>
+//         </Select>
+//       </FormControl>
+//     </>
+//   );
 
 export default Countries;
