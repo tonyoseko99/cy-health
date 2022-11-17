@@ -113,41 +113,39 @@ export default function Dashboard() {
     setOpen(false);
   };
 
-      //   fetch stats from API
-      const [stats, setStats] = useState([]);
-      const [loading, setLoading] = useState(false);
-      useEffect(() => {
-        fetchCountryData();
-      }, []);
-  
-      const fetchCountryData = async () => {
-        setLoading(true);
-        const options = {
-          method: "GET",
-          headers: {
-            "X-RapidAPI-Key":
-              "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
-            "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
-          },
-        };
-  
-        const response = await fetch(
-          "https://covid-193.p.rapidapi.com/statistics",
-          options
-        );
-        const data = await response.json();
-        setStats(data.response);
-        console.log(data.response);
-        setLoading(false);
-      };
+  //   fetch stats from API
+  const [stats, setStats] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchCountryData();
+  }, []);
 
-    //   function to get each country data
-    const getCountryData = (country) => {
-        const data = stats.find((s) => s.country === country);
-        console.log(data);
-        return data;
-        };
+  const fetchCountryData = async () => {
+    setLoading(true);
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
+        "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
+      },
+    };
 
+    const response = await fetch(
+      "https://covid-193.p.rapidapi.com/statistics",
+      options
+    );
+    const data = await response.json();
+    setStats(data.response);
+    console.log(data.response);
+    setLoading(false);
+  };
+
+  //   function to get each country data
+  const getCountryData = (country) => {
+    const data = stats.find((s) => s.country === country);
+    console.log(data);
+    return data;
+  };
 
   // function to get total cases, recovered
   const getTotal = (type) => {
@@ -155,7 +153,7 @@ export default function Dashboard() {
     stats.forEach((country) => {
       total += country.cases[type];
     });
-    return(total);
+    return total;
   };
 
   // function to get total deaths
@@ -196,6 +194,9 @@ export default function Dashboard() {
           <Typography variant="h6" noWrap component="div">
             CyHealth
           </Typography>
+          <span style={{ marginLeft: "auto" }}>
+          {getDate()}
+          </span>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -260,49 +261,41 @@ export default function Dashboard() {
         <Typography className="dashcard-container">
           {/* card to display total number of covid-19 cases */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Cases" subheader={getDate()} />
+            <CardHeader title="Total Cases" />
             <CardContent>
               <Typography variant="body2" color="text.primary">
-                Total number of cases of covid-19
-                <br></br>
                 <strong>
                   {loading ? "Loading..." : getTotal("total").toLocaleString()}
                 </strong>
               </Typography>
             </CardContent>
             <CardActions className="card-actions">
-              <Link to={"/countries"} onClick={() => <Countries /> } >
-                <Button size="small">Learn More</Button>
-                </Link>
+              <Link to={"/countries"} onClick={() => <Countries />}>
+                <Button size="small" className="learn-more-btn">Learn More</Button>
+              </Link>
             </CardActions>
           </Card>
           {/* card to display total number of covid-19 deaths */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Deaths" subheader={getDate()} />
+            <CardHeader title="Total Deaths" />
             <CardContent>
               <Typography variant="body2" color="text.primary">
-                Total number of deaths of covid-19
-                <br></br>
                 <strong>
                   {loading ? "Loading..." : getTotalDeaths().toLocaleString()}
                 </strong>
               </Typography>
             </CardContent>
             <CardActions className="card-actions">
-              <Link to={"/countries"} onClick={() => {<Countries stats={stats} />}}>
-                <Button size="small" className="learn-more-btn">
-                  Learn More
-                </Button>
+              <Link to={"/countries"} onClick={() => <Countries />}>
+                <Button size="small" className="learn-more-btn">Learn More</Button>
               </Link>
             </CardActions>
           </Card>
           {/* card to display total number of covid-19 recovered */}
           <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Recovered" subheader={getDate()} />
+            <CardHeader title="Total Recovered" />
             <CardContent>
               <Typography variant="body2" color="text.primary">
-                Total number of recovered of covid-19
-                <br></br>
                 <strong>
                   {loading
                     ? "Loading..."
@@ -311,11 +304,9 @@ export default function Dashboard() {
               </Typography>
             </CardContent>
             <CardActions className="card-actions">
-              <a href="/countries">
-                <Button size="small" className="learn-more-btn">
-                  Learn More
-                </Button>
-              </a>
+              <Link to={"/countries"} onClick={() => <Countries />}>
+                <Button size="small" className="learn-more-btn">Learn More</Button>
+              </Link>
             </CardActions>
           </Card>
         </Typography>

@@ -20,11 +20,22 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function createData(name, new_cases, active, critical, recovered, deaths, total) {
+function createData(
+  name,
+  new_cases,
+  active,
+  critical,
+  recovered,
+  deaths,
+  total
+) {
   return {
     name,
     new_cases,
@@ -196,7 +207,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          {`Covid-19 Cases per country as of ${new Date().toLocaleDateString()}`}
         </Typography>
       )}
 
@@ -258,13 +269,21 @@ export default function Countries() {
       recovered: country.cases.recovered,
       deaths: country.deaths.total,
       total: country.cases.total,
-
     }));
     setRows(countriesData);
     console.log(countriesData);
   }, [countries]);
 
-  
+  // filter countries
+  const filterCountries = (e) => {
+    const searchWord = e.target.value;
+    const filteredCountries = countries.filter((country) =>
+      country.country.toLowerCase().includes(searchWord.toLowerCase())
+    );
+    setCountries(filteredCountries.name);
+  };
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -324,6 +343,28 @@ export default function Countries() {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
+        <Stack
+          spacing={2}
+          sx={{ width: 300 }}
+          style={{ marginLeft: "auto", padding: "10px" }}
+        >
+          <Autocomplete
+            searchbox
+            id="search-box"
+            disableClearable
+            options={rows.map((row) => row.name)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search input"
+                InputProps={{
+                  ...params.InputProps,
+                  type: "search",
+                }}
+              />
+            )}
+          />
+        </Stack>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -356,16 +397,9 @@ export default function Countries() {
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
+                      className="table-row"
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
+                      <TableCell padding="checkbox"></TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
