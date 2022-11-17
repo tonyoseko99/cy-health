@@ -77,6 +77,12 @@
   margin: 10px;
 }
 
+/* table-container */
+.table-container{
+  padding: 50px 100px 0 100px;
+  height: 100vh;
+}
+
 /* table row */
 .table-row{
   display: flex;

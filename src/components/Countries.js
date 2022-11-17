@@ -24,8 +24,8 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
+// import usestate and useEffect
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 function createData(
   name,
@@ -47,6 +47,8 @@ function createData(
   };
 }
 
+
+// sort table data in descending order
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -57,6 +59,8 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
+
+// order table data in ascending or descending order
 function getComparator(order, orderBy) {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -77,6 +81,8 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+
+// define table head cells
 const headCells = [
   {
     id: "name",
@@ -201,6 +207,7 @@ function EnhancedTableToolbar(props) {
           {numSelected} selected
         </Typography>
       ) : (
+        // return current date of the current table data
         <Typography
           sx={{ flex: "1 1 100%" }}
           variant="h6"
@@ -232,6 +239,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+
+// define the jsx for the Countries component
 export default function Countries() {
   const [rows, setRows] = useState([]);
   const [order, setOrder] = React.useState("asc");
@@ -273,17 +282,6 @@ export default function Countries() {
     setRows(countriesData);
     console.log(countriesData);
   }, [countries]);
-
-  // filter countries
-  const filterCountries = (e) => {
-    const searchWord = e.target.value;
-    const filteredCountries = countries.filter((country) =>
-      country.country.toLowerCase().includes(searchWord.toLowerCase())
-    );
-    setCountries(filteredCountries.name);
-  };
-
-
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -340,9 +338,10 @@ export default function Countries() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%" }} className="table-container">
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
+        {/* search component */}
         <Stack
           spacing={2}
           sx={{ width: 300 }}
@@ -365,6 +364,7 @@ export default function Countries() {
             )}
           />
         </Stack>
+        {/* end of search  */}
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -408,6 +408,7 @@ export default function Countries() {
                       >
                         {row.name}
                       </TableCell>
+                      {/* populate the table cells with country data */}
                       <TableCell align="right">{row.new_cases}</TableCell>
                       <TableCell align="right">{row.active}</TableCell>
                       <TableCell align="right">{row.critical}</TableCell>
@@ -429,6 +430,7 @@ export default function Countries() {
             </TableBody>
           </Table>
         </TableContainer>
+        {/* make pagination */}
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
