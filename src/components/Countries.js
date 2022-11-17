@@ -22,14 +22,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-function createData(name, new_cases, active, critical, recovered) {
+function createData(name, new_cases, active, critical, recovered, deaths, total) {
   return {
     name,
     new_cases,
     active,
     critical,
     recovered,
+    deaths,
+    total,
   };
 }
 
@@ -93,6 +96,18 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: "Recovered",
+  },
+  {
+    id: "deaths",
+    numeric: true,
+    disablePadding: false,
+    label: "Deaths",
+  },
+  {
+    id: "total",
+    numeric: true,
+    disablePadding: false,
+    label: "Total Cases",
   },
 ];
 
@@ -214,6 +229,7 @@ export default function Countries() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [countries, setCountries] = useState([]);
 
   // fetch data from api
   const options = {
@@ -224,10 +240,31 @@ export default function Countries() {
     },
   };
 
-  fetch(`https://covid-193.p.rapidapi.com/statistics?country=${country}`, options)
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err));
+  useEffect(() => {
+    fetch(`https://covid-193.p.rapidapi.com/statistics`, options)
+      .then((response) => response.json())
+      .then((response) => {
+        setCountries(response.response);
+      });
+  }, []);
+
+  // get each country data
+  useEffect(() => {
+    const countriesData = countries.map((country) => ({
+      name: country.country,
+      new_cases: country.cases.new,
+      active: country.cases.active,
+      critical: country.cases.critical,
+      recovered: country.cases.recovered,
+      deaths: country.deaths.total,
+      total: country.cases.total,
+
+    }));
+    setRows(countriesData);
+    console.log(countriesData);
+  }, [countries]);
+
+  
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -337,10 +374,12 @@ export default function Countries() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.new_cases}</TableCell>
+                      <TableCell align="right">{row.active}</TableCell>
+                      <TableCell align="right">{row.critical}</TableCell>
+                      <TableCell align="right">{row.recovered}</TableCell>
+                      <TableCell align="right">{row.deaths}</TableCell>
+                      <TableCell align="right">{row.total}</TableCell>
                     </TableRow>
                   );
                 })}
