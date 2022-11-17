@@ -98,7 +98,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer({ country }) {
+export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -109,6 +109,28 @@ export default function MiniDrawer({ country }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+//   fetch stats from API
+
+  useEffect(() => {
+    const fetchCountryData = async () => {
+        setLoading(true);
+        const options = {
+            method: "GET",
+            headers: {
+                "X-RapidAPI-Key": "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
+                "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
+            },
+        };
+
+        const response = await fetch("https://covid-193.p.rapidapi.com/statistics", options);
+        const data = await response.json();
+        setCountryData(data.response);
+        console.log(data.response);
+        setLoading(false);
+    };
+    fetchCountryData();
+}, []);
 
   return (
     <Box sx={{ display: "flex" }}>
