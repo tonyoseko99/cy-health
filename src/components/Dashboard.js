@@ -30,6 +30,8 @@ import {
   Button,
 } from "@mui/material";
 import { Dashboard } from "@mui/icons-material";
+// import useState and useEffect
+import { useState, useEffect } from "react";
 
 const drawerWidth = 240;
 
@@ -110,27 +112,44 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-//   fetch stats from API
-
+  //   fetch stats from API
+  const [stats, setStats] = useState([]);
+  const [countryData, setCountryData] = useState([]);
+  const [errors, setErrors] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchCountryData = async () => {
-        setLoading(true);
-        const options = {
-            method: "GET",
-            headers: {
-                "X-RapidAPI-Key": "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
-                "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
-            },
-        };
+      setLoading(true);
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "8cb05c0c99msh54bd09dc4e0a425p1571ddjsnf812c3d83eac",
+          "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
+        },
+      };
 
-        const response = await fetch("https://covid-193.p.rapidapi.com/statistics", options);
-        const data = await response.json();
-        setCountryData(data.response);
-        console.log(data.response);
-        setLoading(false);
+      const response = await fetch(
+        "https://covid-193.p.rapidapi.com/statistics",
+        options
+      );
+      const data = await response.json();
+      setStats(data.response);
+      console.log(data.response);
+      setLoading(false);
     };
     fetchCountryData();
-}, []);
+  }, []);
+
+//   function to get total cases
+    const getTotalCases = () => {
+        let totalCases = 0;
+        stats.map((country) => {
+            totalCases += country.cases.total;
+        });
+        return totalCases;
+    };
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -167,7 +186,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>
           {[
-            <a href="/dashboard">Dashbord</a>,
+            <a href="/">Dashbord</a>,
             <a href="/countries">Countries</a>,
             <a href="/history">History</a>,
             <a href="/analysis">Analysis</a>,
@@ -220,38 +239,50 @@ export default function MiniDrawer() {
             <CardContent>
               <Typography variant="body2" color="text.secondary">
                 Total number of cases of covid-19
+                <br></br>
+                <strong>
+                    {loading ? "Loading..." : getTotalCases().toLocaleString()}
+                </strong>
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" className="learn-more-btn">Learn More</Button>
+              <Button size="small" className="learn-more-btn">
+                Learn More
+              </Button>
             </CardActions>
           </Card>
-            {/* card to display total number of covid-19 deaths */}
-            <Card sx={{ maxWidth: 345 }} className="dashcard">
+          {/* card to display total number of covid-19 deaths */}
+          <Card sx={{ maxWidth: 345 }} className="dashcard">
             <CardHeader title="Total Deaths" subheader="September 14, 2021" />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary">
                 Total number of deaths of covid-19
-                </Typography>
+              </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" className="learn-more-btn">Learn More</Button>
+              <Button size="small" className="learn-more-btn">
+                Learn More
+              </Button>
             </CardActions>
-            </Card>
-            {/* card to display total number of covid-19 recovered */}
-            <Card sx={{ maxWidth: 345 }} className="dashcard">
-            <CardHeader title="Total Recovered" subheader="September 14, 2021" />
+          </Card>
+          {/* card to display total number of covid-19 recovered */}
+          <Card sx={{ maxWidth: 345 }} className="dashcard">
+            <CardHeader
+              title="Total Recovered"
+              subheader="September 14, 2021"
+            />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary">
                 Total number of recovered of covid-19
-                </Typography>
+              </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" className="learn-more-btn">Learn More</Button>
+              <Button size="small" className="learn-more-btn">
+                Learn More
+              </Button>
             </CardActions>
-            </Card>
+          </Card>
         </Typography>
-        
       </Box>
     </Box>
   );
