@@ -47,6 +47,15 @@
   align-content: center;
 }
 
+/* dashboard menu */
+.dashboard-menu a{
+  text-decoration: none;
+  color: #282c34;
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0 10px;
+}
+
 /* dashcard */
 .dashcard-container .dashcard{
   display: flex;
@@ -96,4 +105,49 @@
   padding: 10px;
   background-color: darkgray;
   color: white;
+}
+
+/* about page */
+.about-us{
+  padding: 50px 100px 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: left;
+  align-content: center;
+  text-align: left;
+  margin: 20px 0 0 100px;
+
+}
+
+.about-title{
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px;
+  text-align: left;
+  border-left: 3px solid #1976d2;
+}
+
+.about-p{
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px;
+  width: 70%;
+  line-height: auto;
+}
+
+/* footer */
+.footer{
+  position: bottom-fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  background-color: #1976d2;
+  color: darkgrey;
 }

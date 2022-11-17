@@ -165,14 +165,13 @@ export default function Dashboard() {
         </DrawerHeader>
         <Divider />
         {/* dashboard menu lists */}
-        <List>
+        <List className="dashboard-menu">
           {[
             <a href="/">Dashbord</a>,
             <a href="/countries">Countries</a>,
             <a href="/history">History</a>,
             <a href="/analysis">Analysis</a>,
             <a href="/about">About US</a>,
-            <a href="/contact">Contact US</a>,
           ].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton

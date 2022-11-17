@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import Countries from "./components/Countries";
 import Home from "./components/Home";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </Router>
+      <Footer />
     </div>
   );
 }

@@ -340,7 +340,7 @@ export default function Countries() {
   return (
     <Box sx={{ width: "100%" }} className="table-container">
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         {/* search component */}
         <Stack
           spacing={2}
