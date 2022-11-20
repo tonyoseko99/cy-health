@@ -26,7 +26,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
 // import usestate and useEffect
 import { useState, useEffect } from "react";
-import SearchBar from "./SearchBar";
 
 function createData(
   name,
@@ -48,7 +47,6 @@ function createData(
   };
 }
 
-
 // sort table data in descending order
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,7 +57,6 @@ function descendingComparator(a, b, orderBy) {
   }
   return 0;
 }
-
 
 // order table data in ascending or descending order
 function getComparator(order, orderBy) {
@@ -81,7 +78,6 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
-
 
 // define table head cells
 const headCells = [
@@ -240,7 +236,6 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-
 // define the jsx for the Countries component
 export default function Countries() {
   const [rows, setRows] = useState([]);
@@ -338,6 +333,34 @@ export default function Countries() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  const SearchBar = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleChange = (event) => {
+      setSearchTerm(event.target.value);
+    };
+
+    useEffect(() => {
+      const results = rows.filter((row) =>
+        row.name.toLowerCase().includes(searchTerm)
+      );
+      setSearchResults(results);
+    }, [searchTerm]);
+
+    return (
+      // search bar with select option
+      <div className="search">
+        <div className="searchInputs">
+          <input type="text" placeholder="Search" onChange={handleChange} />
+          <select>
+            <option value="name">Name</option>
+          </select>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Box sx={{ width: "100%" }} className="table-container">
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -369,9 +392,8 @@ export default function Countries() {
           />
         </Stack> */}
         {/* end of search  */}
-        <SearchBar countries={rows} />
+        <SearchBar />
         <TableContainer>
-
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"

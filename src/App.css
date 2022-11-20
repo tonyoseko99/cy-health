@@ -137,6 +137,12 @@
   line-height: auto;
 }
 
+/* graph section */
+.graph-section{
+  padding: 50px 200px;
+
+}
+
 /* footer */
 .footer{
   position: bottom-fixed;
@@ -147,7 +153,7 @@
   align-content: center;
   width: 100%;
   height: 50px;
-  padding: 10px;
+  padding: 10px 0 0 0;
   background-color: #1976d2;
   color: darkgrey;
 }

@@ -36,7 +36,7 @@ function App() {
       <Router>
         <Dashboard />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home countries={countries} />} />
           <Route path="/countries" element={<Countries />} />
           <Route path="/about" element={<About />} />
           <Route path="/analysis" element={<Analysis countries={countries} />} />

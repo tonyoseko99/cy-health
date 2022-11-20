@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Countries from "./Countries";
 
-export default function Home() {
+export default function Home({countries}) {
     //   fetch stats from API
     const [stats, setStats] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -105,7 +105,7 @@ export default function Home() {
             </Typography>
           </CardContent>
           <CardActions className="card-actions">
-            <Link to={"/countries"} onClick={() => <Countries />}>
+            <Link to={"/countries"} onClick={() => <Countries countries={countries} />}>
               <Button size="small" className="learn-more-btn">
                 Learn More
               </Button>
