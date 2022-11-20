@@ -28,6 +28,23 @@ const Analysis = ({ countries }) => {
       });
   }, []);
 
+//   get the number of days over the last week
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        days.push(d.toISOString().slice(11, 16));
+        // increment the hours by 1
+        d.setHours(d.getHours() + 1);
+        
+
+    }
+    days.reverse();
+    console.log(`days: ${days}`);
+
+
+
+
   // hours in range 0-23
   const hours = Array.from({ length: 24 }, (_, i) => i);
   // get the number of cases for each of the 24 hours
@@ -104,14 +121,13 @@ const Analysis = ({ countries }) => {
     });
     return hourData.reduce((acc, item) => acc + item.tests.new, 0);
   });
-  // get the number of population for each hour
 
   const graphData = {
     // labels in hours
-    labels: Array.from({ length: 24 }, (_, i) => `${i} hours`),
+    labels: days, // hours
     datasets: [
       {
-        label: "Number of Cases",
+        label: "Total Cases",
         data: cases,
         backgroundColor: ["blue"],
         borderColor: ["blue"],
@@ -146,6 +162,20 @@ const Analysis = ({ countries }) => {
         borderColor: ["orange"],
         borderWidth: 1,
       },
+        {
+            label: "Number of Tests",
+            data: tests,
+            backgroundColor: ["purple"],
+            borderColor: ["purple"],
+            borderWidth: 1,
+        },
+        {
+            label: "Number of New Tests",
+            data: newTests,
+            backgroundColor: ["pink"],
+            borderColor: ["pink"],
+            borderWidth: 1,
+        },
     ],
 
     options: {
