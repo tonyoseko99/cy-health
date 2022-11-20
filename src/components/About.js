@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 export default function About() {
   return (
-    <Box sx={{ flexGrow: 1, p: 3 }} className="about-us">
+    <Box className="about-us">
       <Typography variant="h4" className="about-title">About Us</Typography>
       <Typography variant="body1" className="about-p">
         This is a simple dashboard to display COVID-19 data from around the

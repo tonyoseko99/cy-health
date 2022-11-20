@@ -130,7 +130,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -153,7 +153,7 @@ export default function Dashboard() {
         </Toolbar>
       </AppBar>
       ;
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -165,7 +165,7 @@ export default function Dashboard() {
         </DrawerHeader>
         <Divider />
         {/* dashboard menu lists */}
-        <List className="dashboard-menu">
+        <List className="dashboard-menu" id="dashboard-sidebar">
           {[
             <a href="/">Dashbord</a>,
             <a href="/countries">Countries</a>,

@@ -46,13 +46,23 @@
   align-content: center;
 }
 
+
+/* dashboard menu */
+.dashboard-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 /* dashboard menu */
 .dashboard-menu a{
   text-decoration: none;
   color: #282c34;
-  font-size: 1em;
+  font-size: 1.5em;
   font-weight: normal;
-  margin: 0 10px;
+  margin: 10px;
 }
 
 
@@ -120,6 +130,7 @@
 /* about page */
 .about-us{
   padding: 50px 100px 0 100px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: baseline;
@@ -133,7 +144,7 @@
 .about-title{
   font-size: 30px;
   font-weight: bold;
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
   text-align: left;
   border-left: 3px solid #1976d2;
@@ -141,7 +152,7 @@
 
 .about-p{
   font-size: 20px;
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
   width: 70%;
   line-height: auto;

@@ -57,7 +57,7 @@ export default function Home({countries}) {
       <div style={{ padding: "10px 0" }} />
       <Typography className="dashcard-container">
         {/* card to display total number of covid-19 cases */}
-        <Card sx={{ maxWidth: 345 }} className="dashcard">
+        <Card className="dashcard">
           <CardHeader title="Total Cases" />
           <CardContent>
             <Typography variant="body2" color="text.primary">
@@ -75,7 +75,7 @@ export default function Home({countries}) {
           </CardActions>
         </Card>
         {/* card to display total number of covid-19 deaths */}
-        <Card sx={{ maxWidth: 345 }} className="dashcard">
+        <Card className="dashcard">
           <CardHeader title="Total Deaths" />
           <CardContent>
             <Typography variant="body2" color="text.primary">
@@ -93,7 +93,7 @@ export default function Home({countries}) {
           </CardActions>
         </Card>
         {/* card to display total number of covid-19 recovered */}
-        <Card sx={{ maxWidth: 345 }} className="dashcard">
+        <Card className="dashcard">
           <CardHeader title="Total Recovered" />
           <CardContent>
             <Typography variant="body2" color="text.primary">

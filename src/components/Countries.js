@@ -26,6 +26,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
 // import usestate and useEffect
 import { useState, useEffect } from "react";
+import { Form } from "react-router-dom";
+import { formControlClasses } from "@mui/material";
 
 function createData(
   name,
@@ -280,10 +282,21 @@ export default function Countries() {
     console.log(countriesData);
   }, [countries]);
 
-  // search data
-  useEffect(() => {
-    setSearchData(rows);
-  }, [rows]);
+  // handle search
+  const handleSearch = (e) => {
+    const searchWord = e.target.value;
+    const newFilter = rows.filter((value) => {
+      return value.name.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    if (searchWord === "") {
+      setRows([]);
+    } else {
+      setRows(newFilter);
+    }
+    
+  };
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -344,46 +357,19 @@ export default function Countries() {
       <Paper sx={{ width: "100%", mb: 2 }}>
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         {/* search component */}
-        {/* <Stack
+        <Stack
           spacing={2}
           sx={{ width: 300 }}
           style={{ marginLeft: "auto", padding: "10px" }}
         >
-          <Autocomplete
-            searchbox
-            id="search-box"
-            disableClearable
-            options={rows.map((country) => {
-              return country.name;
-            })}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search input"
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-                onChange={handleSearch}
-              />
-            )}
+          <TextField
+            id="outlined-basic"
+            label="Search by country"
+            variant="outlined"
+            onChange={handleSearch}
           />
-        </Stack> */}
-        {/* end of search  */}
-        <div className="input">
-          <input
-            id="search-input"
-            type="text"
-            placeholder="search country..."
-            onChange={(e) => {
-              let query = rows.filter((row) =>
-                row.name.toLowerCase().includes(e.target.value.toLowerCase())
-              );
-              console.log("search", query);
-              setSearchData(query);
-            }}
-          />
-        </div>
+        </Stack>
+        {/* end of search button */}
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
