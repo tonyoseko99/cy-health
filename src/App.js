@@ -6,17 +6,18 @@ import Countries from "./components/Countries";
 import Home from "./components/Home";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import Analysis from "./components/Analysis";
 
 function App() {
   return (
     <div className="App">
-      
       <Router>
-      <Dashboard />
+        <Dashboard />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/countries" element={<Countries />} />
           <Route path="/about" element={<About />} />
+          <Route path="/analysis" element={<Analysis />} />
         </Routes>
       </Router>
       <Footer />

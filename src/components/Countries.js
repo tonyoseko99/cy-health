@@ -26,6 +26,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
 // import usestate and useEffect
 import { useState, useEffect } from "react";
+import SearchBar from "./SearchBar";
 
 function createData(
   name,
@@ -342,7 +343,7 @@ export default function Countries() {
       <Paper sx={{ width: "100%", mb: 2 }}>
         {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
         {/* search component */}
-        <Stack
+        {/* <Stack
           spacing={2}
           sx={{ width: 300 }}
           style={{ marginLeft: "auto", padding: "10px" }}
@@ -351,7 +352,9 @@ export default function Countries() {
             searchbox
             id="search-box"
             disableClearable
-            options={rows.map((row) => row.name)}
+            options={rows.map((country) => {
+              return country.name;
+            })}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -360,12 +363,15 @@ export default function Countries() {
                   ...params.InputProps,
                   type: "search",
                 }}
+                onChange={handleSearch}
               />
             )}
           />
-        </Stack>
+        </Stack> */}
         {/* end of search  */}
+        <SearchBar countries={rows} />
         <TableContainer>
+
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
