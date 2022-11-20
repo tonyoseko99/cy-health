@@ -30,14 +30,16 @@ const Analysis = ({ countries }) => {
 
   // hours in range 0-23
   const hours = Array.from({ length: 24 }, (_, i) => i);
-  // get the number of cases for each hour
-  const cases = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
+  // get the number of cases for each of the 24 hours
+    const cases = hours.map((hour) => {
+        const hourData = data.filter((item) => {
+            const itemDate = new Date(item.time);
+            return itemDate.getHours() === hour;
+        });
+        return hourData.length;
     });
-    return hourData.reduce((acc, item) => acc + item.cases.total, 0);
-  });
+    console.log(cases);
+
   // get the number of deaths for each hour
   const deaths = hours.map((hour) => {
     const hourData = data.filter((item) => {
@@ -145,6 +147,16 @@ const Analysis = ({ countries }) => {
         borderWidth: 1,
       },
     ],
+
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+            }
+        }
+    }
+
+
   };
 
   return (
@@ -153,6 +165,10 @@ const Analysis = ({ countries }) => {
         Number of Cases
       </Typography>
       <Bar data={graphData} />
+      <br />
+        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+        Line Graph
+        </Typography>
       <Line data={graphData} />
     </div>
   );
