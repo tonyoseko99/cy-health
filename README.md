@@ -1,6 +1,6 @@
 # CyHealth
 
-A health web application that tracks the progress of COVID-19 data.
+A health web application that tracks that tracks COVID-19 and its spread across the world.
 
 ## `Technologies Used`
 
@@ -13,7 +13,7 @@ A health web application that tracks the progress of COVID-19 data.
 
 ## `Setting up the project`
 
-### `Fork or Clone the app`
+### `Fork or Clone the repository`
 - Clone to local machine using the 'git clone <link> command'
 
 ### `npm install`
@@ -27,7 +27,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## Licencing
+## Licensing
 - MIT @ Copyright 2022
 
 
