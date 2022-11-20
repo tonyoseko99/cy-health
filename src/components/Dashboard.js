@@ -147,7 +147,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            CyHealth
+            <Link to ="/" style={{textDecoration:"none", color:"white"}}>CyHealth</Link>
           </Typography>
           <span style={{ marginLeft: "auto" }}>{getDate()}</span>
         </Toolbar>
@@ -169,7 +169,6 @@ export default function Dashboard() {
           {[
             <a href="/">Dashbord</a>,
             <a href="/countries">Countries</a>,
-            <a href="/history">History</a>,
             <a href="/analysis">Analysis</a>,
             <a href="/about">About US</a>,
           ].map((text, index) => (
@@ -194,13 +193,9 @@ export default function Dashboard() {
                     } else if (index === 1) {
                       return <PublicIcon />;
                     } else if (index === 2) {
-                      return <HistoryIcon />;
-                    } else if (index === 3) {
                       return <EqualizerIcon />;
-                    } else if (index === 4) {
+                    } else if (index === 3) {
                       return <InfoIcon />;
-                    } else if (index === 5) {
-                      return <ContactPageIcon />;
                     }
                   })()}
                 </ListItemIcon>

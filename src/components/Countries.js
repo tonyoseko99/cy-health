@@ -246,6 +246,7 @@ export default function Countries() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [countries, setCountries] = useState([]);
+  const [searchData, setSearchData] = useState([]);
 
   // fetch data from api
   const options = {
@@ -278,6 +279,11 @@ export default function Countries() {
     setRows(countriesData);
     console.log(countriesData);
   }, [countries]);
+
+  // search data
+  useEffect(() => {
+    setSearchData(rows);
+  }, [rows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -333,34 +339,6 @@ export default function Countries() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const SearchBar = () => {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-
-    const handleChange = (event) => {
-      setSearchTerm(event.target.value);
-    };
-
-    useEffect(() => {
-      const results = rows.filter((row) =>
-        row.name.toLowerCase().includes(searchTerm)
-      );
-      setSearchResults(results);
-    }, [searchTerm]);
-
-    return (
-      // search bar with select option
-      <div className="search">
-        <div className="searchInputs">
-          <input type="text" placeholder="Search" onChange={handleChange} />
-          <select>
-            <option value="name">Name</option>
-          </select>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <Box sx={{ width: "100%" }} className="table-container">
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -392,7 +370,20 @@ export default function Countries() {
           />
         </Stack> */}
         {/* end of search  */}
-        <SearchBar />
+        <div className="input">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="search country..."
+            onChange={(e) => {
+              let query = rows.filter((row) =>
+                row.name.toLowerCase().includes(e.target.value.toLowerCase())
+              );
+              console.log("search", query);
+              setSearchData(query);
+            }}
+          />
+        </div>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

@@ -53,8 +53,8 @@ export default function Home({countries}) {
       return total;
     };
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }} className="card-box">
-      <div style={{ padding: "30px 0" }} />
+    <Box component="main" sx={{ flexGrow: 1, p: 3 }} className="home-container">
+      <div style={{ padding: "10px 0" }} />
       <Typography className="dashcard-container">
         {/* card to display total number of covid-19 cases */}
         <Card sx={{ maxWidth: 345 }} className="dashcard">

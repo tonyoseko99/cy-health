@@ -37,11 +37,10 @@
   }
 }
 
-/* dashcard-container */
-.dashcard-container {
+/* home container */
+.home-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -56,6 +55,15 @@
   margin: 0 10px;
 }
 
+
+.dashcard-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
 /* dashcard */
 .dashcard-container .dashcard{
   display: flex;
@@ -64,12 +72,14 @@
   align-items: center;
   align-content: center;
   width: 100%;
-  height: 250px;
-  margin: 10px;
-  padding: 10px;
+  height: 200px;
   background-color: #1976d2;
   color: white;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
 }
+
 /* card actions a */
 .card-actions a{
   color: white;
