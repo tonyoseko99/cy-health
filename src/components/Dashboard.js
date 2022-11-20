@@ -17,26 +17,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PublicIcon from "@mui/icons-material/Public";
-import HistoryIcon from "@mui/icons-material/History";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import InfoIcon from "@mui/icons-material/Info";
-import ContactPageIcon from "@mui/icons-material/ContactPage";
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Button,
-} from "@mui/material";
 import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 // import usestate and useeffect
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // import link from react-router-dom
 import { Link } from "react-router-dom";
 // import countries component
-import Countries from "./Countries";
-import Home from "./Home";
 
 const drawerWidth = 240;
 

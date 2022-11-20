@@ -1,15 +1,10 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import { Bar, Line } from "react-chartjs-2";
-import { Box } from "@mui/system";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
 const Analysis = ({ countries }) => {
   const [data, setData] = useState([]);
-  const date = new Date();
-  const today = date.toISOString().slice(0, 10);
   useEffect(() => {
     fetch(`https://covid-193.p.rapidapi.com/statistics`, {
       method: "GET",
@@ -89,22 +84,7 @@ const Analysis = ({ countries }) => {
     });
     return hourData.reduce((acc, item) => acc + item.cases.active, 0);
   });
-  // get the number of new cases for each hour
-  const newCases = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.cases.new, 0);
-  });
-  // get the number of new deaths for each hour
-  const newDeaths = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.deaths.new, 0);
-  });
+  
   // get the number of tests for each hour
   const tests = hours.map((hour) => {
     const hourData = data.filter((item) => {

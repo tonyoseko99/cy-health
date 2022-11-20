@@ -13,7 +13,6 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -22,12 +21,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import Autocomplete from "@mui/material/Autocomplete";
 import { visuallyHidden } from "@mui/utils";
 // import usestate and useEffect
 import { useState, useEffect } from "react";
-import { Form } from "react-router-dom";
-import { formControlClasses } from "@mui/material";
 
 function createData(
   name,
@@ -129,11 +125,8 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick,
     order,
     orderBy,
-    numSelected,
-    rowCount,
     onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
@@ -248,7 +241,6 @@ export default function Countries() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [countries, setCountries] = useState([]);
-  const [searchData, setSearchData] = useState([]);
 
   // fetch data from api
   const options = {

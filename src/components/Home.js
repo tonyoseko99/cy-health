@@ -2,7 +2,6 @@ import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { Card, CardHeader, CardContent, CardActions } from "@mui/material";
 import Button from "@mui/material/Button";
-import MuiDrawer from "@mui/material/Drawer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Countries from "./Countries";
