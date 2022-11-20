@@ -2,7 +2,7 @@
 
 A health web application that tracks the progress of COVID-19 data.
 
-## Technologies Used
+## `Technologies Used`
 
 - HTML
 - CSS
@@ -11,9 +11,9 @@ A health web application that tracks the progress of COVID-19 data.
 - Material UI
 - Rapid API
 
-## Setting up the project
+## `Setting up the project`
 
-### Fork or Clone the app
+### `Fork or Clone the app`
 - Clone to local machine using the 'git clone <link> command'
 
 ### `npm install`
