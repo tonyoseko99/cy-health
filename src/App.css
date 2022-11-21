@@ -193,12 +193,12 @@
     padding: 50px 50px 0 50px;
   }
   .about-us{
-    padding: 50px 50px 0 10px;
     height: auto;
+    padding: 10px 0;
   }
   .about-title{
     font-size: 20px;
-    margin: 20px;
+    margin: 20px 0;
     padding: 10px;
   }
   .about-p{
@@ -214,5 +214,10 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+  }
+
+  .graph{
+    width: 100%;
+    height: 100%;
   }
 }

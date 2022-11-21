@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
+import { Box } from "@mui/system";
 import { Bar, Line } from "react-chartjs-2";
 import Typography from "@mui/material/Typography";
 
@@ -23,34 +24,29 @@ const Analysis = ({ countries }) => {
       });
   }, []);
 
-//   get the number of days over the last week
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        days.push(d.toISOString().slice(11, 16));
-        // increment the hours by 1
-        d.setHours(d.getHours() + 1);
-        
-
-    }
-    days.reverse();
-    console.log(`days: ${days}`);
-
-
-
+  //   get the number of days over the last week
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(d.toISOString().slice(11, 16));
+    // increment the hours by 1
+    d.setHours(d.getHours() + 1);
+  }
+  days.reverse();
+  console.log(`days: ${days}`);
 
   // hours in range 0-23
   const hours = Array.from({ length: 24 }, (_, i) => i);
   // get the number of cases for each of the 24 hours
-    const cases = hours.map((hour) => {
-        const hourData = data.filter((item) => {
-            const itemDate = new Date(item.time);
-            return itemDate.getHours() === hour;
-        });
-        return hourData.length;
+  const cases = hours.map((hour) => {
+    const hourData = data.filter((item) => {
+      const itemDate = new Date(item.time);
+      return itemDate.getHours() === hour;
     });
-    console.log(cases);
+    return hourData.length;
+  });
+  console.log(cases);
 
   // get the number of deaths for each hour
   const deaths = hours.map((hour) => {
@@ -84,7 +80,7 @@ const Analysis = ({ countries }) => {
     });
     return hourData.reduce((acc, item) => acc + item.cases.active, 0);
   });
-  
+
   // get the number of tests for each hour
   const tests = hours.map((hour) => {
     const hourData = data.filter((item) => {
@@ -142,31 +138,29 @@ const Analysis = ({ countries }) => {
         borderColor: ["orange"],
         borderWidth: 1,
       },
-        {
-            label: "Number of Tests",
-            data: tests,
-            backgroundColor: ["purple"],
-            borderColor: ["purple"],
-            borderWidth: 1,
-        },
-        {
-            label: "Number of New Tests",
-            data: newTests,
-            backgroundColor: ["pink"],
-            borderColor: ["pink"],
-            borderWidth: 1,
-        },
+      {
+        label: "Number of Tests",
+        data: tests,
+        backgroundColor: ["purple"],
+        borderColor: ["purple"],
+        borderWidth: 1,
+      },
+      {
+        label: "Number of New Tests",
+        data: newTests,
+        backgroundColor: ["pink"],
+        borderColor: ["pink"],
+        borderWidth: 1,
+      },
     ],
 
     options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-            }
-        }
-    }
-
-
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
   };
 
   return (
@@ -174,12 +168,16 @@ const Analysis = ({ countries }) => {
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Number of Cases
       </Typography>
-      <Bar data={graphData} />
+      <div className="graph">
+        <Bar data={graphData} />
+      </div>
       <br />
-        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+      <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Line Graph
-        </Typography>
-      <Line data={graphData} />
+      </Typography>
+      <div className="graph">
+        <Line data={graphData} />
+      </div>
     </div>
   );
 };
