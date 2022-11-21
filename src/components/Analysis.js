@@ -24,76 +24,51 @@ const Analysis = ({ countries }) => {
       });
   }, []);
 
-  //   get the number of days over the last week
-  const days = [];
-  for (let i = 0; i < 1; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    days.push(d.toISOString().slice(11, 16));
-    // increment the hours by 1
-    d.setHours(d.getHours() + 1);
+
+  // get the current hour and store in a hours array
+  const hours = [];
+  const hour = new Date().getHours();
+  for (let i = 0; i < 24; i++) {
+    hours.push((hour + i) % 24);
   }
-  days.reverse();
-  console.log(`days: ${days}`);
 
-  // hours in range 0-23
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  // show the current hour in the last 24 hours
-  const currHour = [];
-  const currentHour = new Date().getHours();
-  currHour.push(currentHour);
-  console.log(`currentHour: ${currentHour}`);
-  // get the number of cases for each of the 24 hours
-  const cases = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.length;
-  });
-  console.log(cases);
+  // get the total cases for the current hour and store in a cases array
+  const cases = [];
+  for (let i = 0; i < 24; i++) {
+    cases.push(data[i]?.cases.total);
+  }
 
-  // get the number of deaths for each hour
-  const deaths = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.deaths.total, 0);
-  });
-  // get the number of recovered for each hour
-  const recovered = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.cases.recovered, 0);
-  });
-  // get the number of critical for each hour
-  const critical = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.cases.critical, 0);
-  });
-  // get the number of active for each hour
-  const active = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.cases.active, 0);
-  });
+  // get the total deaths for the current hour and store in a deaths array
+  const deaths = [];
+  for (let i = 0; i < 24; i++) {
+    deaths.push(data[i]?.deaths.total);
+  }
 
-  // get the number of tests for each hour
-  const tests = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.tests.total, 0);
-  });
+  // get the total recovered for the current hour and store in a recovered array
+  const recovered = [];
+  for (let i = 0; i < 24; i++) {
+    recovered.push(data[i]?.cases.recovered);
+  }
+
+  // get the total critical for the current hour and store in a critical array
+  const critical = [];
+  for (let i = 0; i < 24; i++) {
+    critical.push(data[i]?.cases.critical);
+  }
+
+  // get the total active for the current hour and store in a active array
+  const active = [];
+  for (let i = 0; i < 24; i++) {
+    active.push(data[i]?.cases.active);
+  }
+
+  // get the total tests for the current hour and store in a tests array
+  const tests = [];
+  for (let i = 0; i < 24; i++) {
+    tests.push(data[i]?.tests.total);
+  }
+
+  
 
   const graphData = {
     // labels in hours
@@ -156,8 +131,11 @@ const Analysis = ({ countries }) => {
   return (
     <div className="graph-section">
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
-        Number of Cases
+        Number of Cases in the last 24 hours
       </Typography>
+      <p className="graph-description">
+        <strong>To get a comprehensive view of the number of cases, please select a colored bar on the top</strong>
+      </p>
       <div className="graph">
         <Bar data={graphData} />
       </div>
