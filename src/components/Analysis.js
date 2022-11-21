@@ -29,7 +29,7 @@ const Analysis = ({ countries }) => {
   const hours = [];
   const hour = new Date().getHours();
   for (let i = 0; i < 24; i++) {
-    hours.push((hour + i) % 24);
+    hours.push(`${hour - i}:00 hrs`);
   }
 
   // get the total cases for the current hour and store in a cases array
