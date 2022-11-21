@@ -26,7 +26,7 @@ const Analysis = ({ countries }) => {
 
   //   get the number of days over the last week
   const days = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 1; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     days.push(d.toISOString().slice(11, 16));
@@ -38,6 +38,11 @@ const Analysis = ({ countries }) => {
 
   // hours in range 0-23
   const hours = Array.from({ length: 24 }, (_, i) => i);
+  // show the current hour in the last 24 hours
+  const currHour = [];
+  const currentHour = new Date().getHours();
+  currHour.push(currentHour);
+  console.log(`currentHour: ${currentHour}`);
   // get the number of cases for each of the 24 hours
   const cases = hours.map((hour) => {
     const hourData = data.filter((item) => {
@@ -89,18 +94,10 @@ const Analysis = ({ countries }) => {
     });
     return hourData.reduce((acc, item) => acc + item.tests.total, 0);
   });
-  // get the number of new tests for each hour
-  const newTests = hours.map((hour) => {
-    const hourData = data.filter((item) => {
-      const itemDate = new Date(item.time);
-      return itemDate.getHours() === hour;
-    });
-    return hourData.reduce((acc, item) => acc + item.tests.new, 0);
-  });
 
   const graphData = {
     // labels in hours
-    labels: days, // hours
+    labels: hours, // hours
     datasets: [
       {
         label: "Total Cases",
@@ -143,13 +140,6 @@ const Analysis = ({ countries }) => {
         data: tests,
         backgroundColor: ["purple"],
         borderColor: ["purple"],
-        borderWidth: 1,
-      },
-      {
-        label: "Number of New Tests",
-        data: newTests,
-        backgroundColor: ["pink"],
-        borderColor: ["pink"],
         borderWidth: 1,
       },
     ],
