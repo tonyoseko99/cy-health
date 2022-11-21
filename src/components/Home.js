@@ -59,7 +59,7 @@ export default function Home({countries}) {
         <Card className="dashcard">
           <CardHeader title="Total Cases" />
           <CardContent>
-            <Typography variant="body2" color="text.primary">
+            <Typography variant="body2" color="text.light">
               <strong>
                 {loading ? "Loading..." : getTotal("total").toLocaleString()}
               </strong>
@@ -77,7 +77,7 @@ export default function Home({countries}) {
         <Card className="dashcard">
           <CardHeader title="Total Deaths" />
           <CardContent>
-            <Typography variant="body2" color="text.primary">
+            <Typography variant="body2" color="text.light">
               <strong>
                 {loading ? "Loading..." : getTotalDeaths().toLocaleString()}
               </strong>
@@ -95,7 +95,7 @@ export default function Home({countries}) {
         <Card className="dashcard">
           <CardHeader title="Total Recovered" />
           <CardContent>
-            <Typography variant="body2" color="text.primary">
+            <Typography variant="body2" color="text.light">
               <strong>
                 {loading
                   ? "Loading..."

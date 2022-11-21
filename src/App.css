@@ -46,7 +46,6 @@
   align-content: center;
 }
 
-
 /* dashboard menu */
 .dashboard-menu {
   display: flex;
@@ -57,7 +56,7 @@
 }
 
 /* dashboard menu */
-.dashboard-menu a{
+.dashboard-menu a {
   text-decoration: none;
   color: #282c34;
   font-size: 1.5em;
@@ -65,8 +64,7 @@
   margin: 10px;
 }
 
-
-.dashcard-container{
+.dashcard-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -75,7 +73,7 @@
   flex-wrap: wrap;
 }
 /* dashcard */
-.dashcard-container .dashcard{
+.dashcard-container .dashcard {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,17 +85,17 @@
   color: white;
   margin: 10px;
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* card actions a */
-.card-actions a{
+.card-actions a {
   color: white;
   text-decoration: none;
   margin: 10px;
 }
 /* learn more button */
-.learn-more-btn{
+.learn-more-btn {
   background-color: #1976d2;
   color: white !important;
   border: none;
@@ -107,13 +105,13 @@
 }
 
 /* table-container */
-.table-container{
+.table-container {
   padding: 50px 100px 0 100px;
   height: 100vh;
 }
 
 /* table row */
-.table-row{
+.table-row {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -128,7 +126,7 @@
 }
 
 /* about page */
-.about-us{
+.about-us {
   padding: 50px 100px 0 100px;
   height: 100vh;
   display: flex;
@@ -138,10 +136,9 @@
   align-content: center;
   text-align: left;
   margin: 20px 0 0 100px;
-
 }
 
-.about-title{
+.about-title {
   font-size: 30px;
   font-weight: bold;
   margin: 20px;
@@ -150,7 +147,7 @@
   border-left: 3px solid #1976d2;
 }
 
-.about-p{
+.about-p {
   font-size: 20px;
   margin: 20px;
   padding: 10px;
@@ -159,13 +156,12 @@
 }
 
 /* graph section */
-.graph-section{
+.graph-section {
   padding: 50px 200px;
-
 }
 
 /* footer */
-.footer{
+.footer {
   position: bottom-fixed;
   display: flex;
   flex-direction: row;
@@ -181,33 +177,32 @@
 
 /* media query */
 @media screen and (max-width: 768px) {
-  .dashcard-container{
+  .dashcard-container {
     flex-direction: column;
   }
-  .dashcard-container .dashcard{
+  .dashcard-container .dashcard {
     width: 100%;
-    height: 200px;
+    height: 235px;
     margin: 10px;
   }
-  .table-container{
+  .table-container {
     padding: 50px 50px 0 50px;
   }
-  .about-us{
-    height: auto;
-    padding: 10px 0;
+  .about-us {
+    padding: 20px 0;
   }
-  .about-title{
+  .about-title {
     font-size: 20px;
     margin: 20px 0;
     padding: 10px;
   }
-  .about-p{
+  .about-p {
     font-size: 15px;
     margin: 20px;
     padding: 10px;
     width: 100%;
   }
-  .graph-section{
+  .graph-section {
     padding: 50px 50px 0 70px;
     height: 100vh;
     display: flex;
@@ -216,7 +211,7 @@
     align-items: center;
   }
 
-  .graph{
+  .graph {
     width: 100%;
     height: 100%;
   }
